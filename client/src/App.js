@@ -46,11 +46,28 @@ const App = () => {
     };
 
     return (
-        <div className="App">
-            <h1>To-Do App</h1>
-
-            {}
-            <form onSubmit={editTaskId ? (e) => handleUpdateTask(e, editTaskId) : handleAddTask}>
+        <div
+            style={{
+                fontFamily: 'Arial, sans-serif',
+                margin: '20px',
+                padding: '20px',
+                border: '1px solid #ddd',
+                borderRadius: '8px',
+                maxWidth: '600px',
+                backgroundColor: '#f9f9f9'
+            }}
+        >
+            <h1 style={{ color: '#333', textAlign: 'center' }}>To-Do App</h1>
+    
+            <form
+                onSubmit={editTaskId ? (e) => handleUpdateTask(e, editTaskId) : handleAddTask}
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '10px',
+                    marginBottom: '20px'
+                }}
+            >
                 <input
                     type="text"
                     name="name"
@@ -58,6 +75,12 @@ const App = () => {
                     value={newTask.name}
                     onChange={handleChange}
                     required
+                    style={{
+                        padding: '10px',
+                        border: '1px solid #ccc',
+                        borderRadius: '4px',
+                        fontSize: '16px'
+                    }}
                 />
                 <textarea
                     name="description"
@@ -65,6 +88,14 @@ const App = () => {
                     value={newTask.description}
                     onChange={handleChange}
                     required
+                    style={{
+                        padding: '10px',
+                        border: '1px solid #ccc',
+                        borderRadius: '4px',
+                        fontSize: '16px',
+                        resize: 'none',
+                        height: '80px'
+                    }}
                 />
                 <input
                     type="date"
@@ -72,27 +103,82 @@ const App = () => {
                     value={newTask.dueDate}
                     onChange={handleChange}
                     required
+                    style={{
+                        padding: '10px',
+                        border: '1px solid #ccc',
+                        borderRadius: '4px',
+                        fontSize: '16px'
+                    }}
                 />
-                <button type="submit">{editTaskId ? 'Update Task' : 'Add Task'}</button>
+                <button
+                    type="submit"
+                    style={{
+                        padding: '10px',
+                        backgroundColor: '#4CAF50',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '4px',
+                        fontSize: '16px',
+                        cursor: 'pointer'
+                    }}
+                >
+                    {editTaskId ? 'Update Task' : 'Add Task'}
+                </button>
             </form>
-
-            {}
-            <ul>
+    
+            <ul style={{ listStyleType: 'none', padding: 0 }}>
                 {tasks.map((task) => (
-                    <li key={task._id}>
-                        <h3>{task.name}</h3>
-                        <p>{task.description}</p>
-                        <p>Due: {new Date(task.dueDate).toLocaleDateString()}</p>
-                        <button onClick={() => {
-                            setEditTaskId(task._id);
-                            setNewTask({ name: task.name, description: task.description, dueDate: task.dueDate });
-                        }}>Edit</button>
-                        <button onClick={() => handleDeleteTask(task._id)}>Delete</button>
+                    <li
+                        key={task._id}
+                        style={{
+                            border: '1px solid #ddd',
+                            borderRadius: '4px',
+                            padding: '10px',
+                            marginBottom: '10px',
+                            backgroundColor: '#fff'
+                        }}
+                    >
+                        <h3 style={{ margin: '0 0 10px 0', color: '#333' }}>{task.name}</h3>
+                        <p style={{ margin: '0 0 5px 0', color: '#555' }}>{task.description}</p>
+                        <p style={{ margin: '0 0 10px 0', color: '#777' }}>
+                            Due: {new Date(task.dueDate).toLocaleDateString()}
+                        </p>
+                        <button
+                            onClick={() => {
+                                setEditTaskId(task._id);
+                                setNewTask({ name: task.name, description: task.description, dueDate: task.dueDate });
+                            }}
+                            style={{
+                                marginRight: '10px',
+                                padding: '8px',
+                                backgroundColor: '#008CBA',
+                                color: 'white',
+                                border: 'none',
+                                borderRadius: '4px',
+                                cursor: 'pointer'
+                            }}
+                        >
+                            Edit
+                        </button>
+                        <button
+                            onClick={() => handleDeleteTask(task._id)}
+                            style={{
+                                padding: '8px',
+                                backgroundColor: '#f44336',
+                                color: 'white',
+                                border: 'none',
+                                borderRadius: '4px',
+                                cursor: 'pointer'
+                            }}
+                        >
+                            Delete
+                        </button>
                     </li>
                 ))}
             </ul>
         </div>
     );
+    
 };
 
 export default App;
